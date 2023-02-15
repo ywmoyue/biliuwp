@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiliBili.UWP.Api;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace BiliBili.UWP.Pages
                 IsLoading = true;
                 btn_More_Video.Visibility = Visibility.Collapsed;
                 pr_Load.Visibility = Visibility.Visible;
-                string url = string.Format("http://api.bilibili.com/topic/getlist?access_key={0}&appkey={1}&build=424000&mobi_app=android&page={2}&pagesize=20&platform=android&ts={3}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, page, ApiHelper.GetTimeSpan);
+                string url = string.Format("http://api.bilibili.com/topic/getlist?access_key={0}&appkey={1}&build=424000&mobi_app=android&page={2}&pagesize=20&platform=android&ts={3}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, page, ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResults(new Uri(url));
                 TopicModel m = Newtonsoft.Json.JsonConvert.DeserializeObject<TopicModel>(results);

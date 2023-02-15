@@ -1044,7 +1044,7 @@ namespace BiliBili.UWP.Pages
 
         //private async void GetPlayUrl(string cid)
         //{
-        //    string url = "http://interface.bilibili.com/playurl?_device=uwp&cid=" + cid + "&otype=xml&quality=" + 2 + "&appkey=" + ApiHelper.AndroidKey.Appkey + "&access_key=" + ApiHelper.access_key + "&type=mp4&mid=" + "" + "&_buvid=" + ApiHelper._buvid + "&_hwid=" + ApiHelper._hwid + "&platform=uwp_desktop" + "&ts=" + ApiHelper.GetTimeSpan;
+        //    string url = "http://interface.bilibili.com/playurl?_device=uwp&cid=" + cid + "&otype=xml&quality=" + 2 + "&appkey=" + ApiUtils.AndroidKey.Appkey + "&access_key=" + ApiHelper.access_key + "&type=mp4&mid=" + "" + "&_buvid=" + ApiHelper._buvid + "&_hwid=" + ApiHelper._hwid + "&platform=uwp_desktop" + "&ts=" + ApiHelper.GetTimeSpan;
         //    url += "&sign=" + ApiHelper.GetSign(url);
         //    string re = await WebClientClass.GetResults_Phone(new Uri(url));
         //    re = await WebClientClass.GetResults_Phone(new Uri(url));
@@ -2365,7 +2365,7 @@ namespace BiliBili.UWP.Pages
             {
                 WebClientClass wc = new WebClientClass();
                 Uri ReUri = new Uri("https://app.bilibili.com/x/v2/view/coin/add");
-                string QuStr = string.Format("access_key={0}&aid={1}&appkey={2}&build=540000&from=7&mid={3}&platform=android&&multiply={4}&ts={5}", ApiHelper.access_key, playNow.Aid, ApiHelper.AndroidKey.Appkey, ApiHelper.GetUserId(), num, ApiHelper.GetTimeSpan);
+                string QuStr = string.Format("access_key={0}&aid={1}&appkey={2}&build=540000&from=7&mid={3}&platform=android&&multiply={4}&ts={5}", ApiHelper.access_key, playNow.Aid, ApiUtils.AndroidKey.Appkey, ApiHelper.GetUserId(), num, ApiHelper.GetTimeSpan);
                 QuStr += "&sign=" + ApiHelper.GetSign(QuStr);
                 string result = await WebClientClass.PostResults(ReUri, QuStr);
                 JObject jObject = JObject.Parse(result);

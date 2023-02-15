@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
+using BiliBili.UWP.Api;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -97,7 +98,7 @@ namespace BiliBili.UWP.Pages
         {
             try
             {
-                string url = string.Format("http://message.bilibili.com/api/msg/query.double.room.do?access_key={0}&actionKey=appkey&appkey={1}&build=422000&data_type=1&mobi_app=android&platform=android&mid={2}&ts={3}000", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, mid, ApiHelper.GetTimeSpan);
+                string url = string.Format("http://message.bilibili.com/api/msg/query.double.room.do?access_key={0}&actionKey=appkey&appkey={1}&build=422000&data_type=1&mobi_app=android&platform=android&mid={2}&ts={3}000", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, mid, ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResults(new Uri(url));
                 CreateRoomModel m = JsonConvert.DeserializeObject<CreateRoomModel>(results);
@@ -135,7 +136,7 @@ namespace BiliBili.UWP.Pages
         {
             try
             {
-                string url = string.Format("http://message.bilibili.com/api/msg/query.msg.list.do?access_key={0}&actionKey=appkey&appkey={1}&build=422000&data_type=1&mobi_app=android&platform=android&rid={2}&ts={3}000", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, rid, ApiHelper.GetTimeSpan);
+                string url = string.Format("http://message.bilibili.com/api/msg/query.msg.list.do?access_key={0}&actionKey=appkey&appkey={1}&build=422000&data_type=1&mobi_app=android&platform=android&rid={2}&ts={3}000", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, rid, ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResults(new Uri(url));
                 ChatModel m = JsonConvert.DeserializeObject<ChatModel>(results);

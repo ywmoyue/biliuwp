@@ -48,7 +48,7 @@ namespace BiliBili.UWP.Helper
                     {
                         Set_FirstShowMessage(messageModel.messageId, false);
                     });
-                    await cd.ShowAsync();
+                    // await cd.ShowAsync();
                 }
 
             }

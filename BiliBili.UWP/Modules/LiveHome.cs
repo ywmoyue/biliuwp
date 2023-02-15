@@ -8,6 +8,7 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using System.Windows.Input;
 using BiliBili.UWP.Pages;
+using BiliBili.UWP.Api;
 
 namespace BiliBili.UWP.Modules
 {
@@ -74,7 +75,7 @@ namespace BiliBili.UWP.Modules
             try
             {
                 Loading = true;
-                string url =ApiHelper.GetSignWithUrl( $"https://api.live.bilibili.com/xlive/app-interface/v2/index/getAllList?actionKey=appkey&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&device=android&mobi_app=android&platform=android&qn=0&rec_page=1&relation_page=1&scale=xxhdpi&ts={ApiHelper.GetTimeSpan}",ApiHelper.AndroidKey);
+                string url =ApiHelper.GetSignWithUrl( $"https://api.live.bilibili.com/xlive/app-interface/v2/index/getAllList?actionKey=appkey&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&device=android&mobi_app=android&platform=android&qn=0&rec_page=1&relation_page=1&scale=xxhdpi&ts={ApiHelper.GetTimeSpan}",ApiUtils.AndroidKey);
                 var results = await WebClientClass.GetResults(new Uri(url));
                 var model = results.ToDynamicJObject();
                 if (model.code == 0)

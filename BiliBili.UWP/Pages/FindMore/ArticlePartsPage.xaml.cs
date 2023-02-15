@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using BiliBili.UWP.Api;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -54,7 +55,7 @@ namespace BiliBili.UWP.Pages.FindMore
             try
             {
                 pr_Load.Visibility = Visibility.Visible;
-                string url = string.Format( "https://api.bilibili.com/x/article/categories?appkey={0}&build=5250000&mobi_app=android&platform=android&ts={1}",ApiHelper.AndroidKey.Appkey,ApiHelper.GetTimeSpan);
+                string url = string.Format( "https://api.bilibili.com/x/article/categories?appkey={0}&build=5250000&mobi_app=android&platform=android&ts={1}",ApiUtils.AndroidKey.Appkey,ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var results = await WebClientClass.GetResults(new Uri(url));
                 JObject obj = JObject.Parse(results);
@@ -114,7 +115,7 @@ namespace BiliBili.UWP.Pages.FindMore
                     cid = m.children[m.selectIndex].id;
                 }
                 string url = "https://api.bilibili.com/x/article/recommends?access_key={0}&appkey={1}&build=5250000&cid={2}&from=2&mobi_app=android&platform=android&pn={3}&ps=20&sort=0&ts={4}";
-                url = string.Format(url,ApiHelper.access_key,ApiHelper.AndroidKey.Appkey,cid,m.page,ApiHelper.GetTimeSpan);
+                url = string.Format(url,ApiHelper.access_key,ApiUtils.AndroidKey.Appkey,cid,m.page,ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
 
                 string re = await WebClientClass.GetResults(new Uri(url));

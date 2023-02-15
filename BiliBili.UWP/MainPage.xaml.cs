@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Controls;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Controls;
 using BiliBili.UWP.Helper;
 using BiliBili.UWP.Models;
 using BiliBili.UWP.Modules;
@@ -746,7 +747,7 @@ namespace BiliBili.UWP
                     return false;
                 }
                 // http://message.bilibili.com/api/msg/query.room.list.do?access_key=a36a84cc8ef4ea2f92c416951c859a25&actionKey=appkey&appkey=c1b107428d337928&build=414000&page_size=100&platform=android&ts=1461404884000&sign=5e212e424761aa497a75b0fb7fbde775
-                string url = string.Format("http://message.bilibili.com/api/notify/query.notify.count.do?_device=wp&_ulv=10000&access_key={0}&actionKey=appkey&appkey={1}&build=5250000&platform=android&ts={2}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, ApiHelper.GetTimeSpan);
+                string url = string.Format("http://message.bilibili.com/api/notify/query.notify.count.do?_device=wp&_ulv=10000&access_key={0}&actionKey=appkey&appkey={1}&build=5250000&platform=android&ts={2}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResults(new Uri(url));
                 MessageModel model = JsonConvert.DeserializeObject<MessageModel>(results);

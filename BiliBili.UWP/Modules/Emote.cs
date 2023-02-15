@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using BiliBili.UWP.Api;
 
 namespace BiliBili.UWP.Modules
 {
@@ -28,10 +29,10 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                var url = ApiHelper.GetSignWithUrl($"https://api.bilibili.com/x/emote/user/panel?access_key={ ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&business={(_emoteMode == EmoteMode.dynamic ? "dynamic" : "reply")}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}", ApiHelper.AndroidKey);
+                var url = ApiHelper.GetSignWithUrl($"https://api.bilibili.com/x/emote/user/panel?access_key={ ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&business={(_emoteMode == EmoteMode.dynamic ? "dynamic" : "reply")}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}", ApiUtils.AndroidKey);
                 if (id != 0)
                 {
-                    url = ApiHelper.GetSignWithUrl($"https://api.bilibili.com/x/emote/package?access_key={ ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&business={(_emoteMode == EmoteMode.dynamic ? "dynamic" : "reply")}&mobi_app=android&platform=android&ids={id}&ts={ApiHelper.GetTimeSpan}", ApiHelper.AndroidKey);
+                    url = ApiHelper.GetSignWithUrl($"https://api.bilibili.com/x/emote/package?access_key={ ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&business={(_emoteMode == EmoteMode.dynamic ? "dynamic" : "reply")}&mobi_app=android&platform=android&ids={id}&ts={ApiHelper.GetTimeSpan}", ApiUtils.AndroidKey);
                 }
 
                 var results = await WebClientClass.GetResults(new Uri(url));

@@ -24,7 +24,7 @@ namespace BiliBili.UWP.Api
             {
                 method = HttpMethod.GET,
                 baseUrl = $"https://app.bilibili.com/x/v2/search",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + "&fnval=16&fnver=0&force_host=0&fourk=1&from_source=app_search&highlight=0&is_org_query=0&qn=112&recommend=1"
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + "&fnval=16&fnver=0&force_host=0&fourk=1&from_source=app_search&highlight=0&is_org_query=0&qn=112&recommend=1"
             };
             api.parameter += $"&keyword={Uri.EscapeDataString(keyword)}&local_time={Utils.GetTimestampS()}&pn={pn}&ps={ps}";
             if (string.IsNullOrEmpty(order))
@@ -39,7 +39,7 @@ namespace BiliBili.UWP.Api
             {
                 api.parameter += $"&rid={rid}";
             }
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 

@@ -19,9 +19,9 @@ namespace BiliBili.UWP.Api.User
             {
                 method = HttpMethod.GET,
                 baseUrl = "https://app.bilibili.com/x/v2/space",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&vmid={mid}",
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&vmid={mid}",
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 
@@ -69,9 +69,9 @@ namespace BiliBili.UWP.Api.User
             {
                 method =   HttpMethod.POST,
                 baseUrl = $"https://api.bilibili.com/x/relation/modify",
-                body = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&act={mode}&fid={mid}&re_src=32"
+                body = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&act={mode}&fid={mid}&re_src=32"
             };
-            api.body += ApiUtils.GetSign(api.body, ApiHelper.AndroidKey);
+            api.body += ApiUtils.GetSign(api.body, ApiUtils.AndroidKey);
             return api;
         }
 

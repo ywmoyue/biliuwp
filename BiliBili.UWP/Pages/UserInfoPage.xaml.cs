@@ -23,6 +23,7 @@ using BiliBili.UWP.Views;
 using BiliBili.UWP.Pages.FindMore;
 using Windows.UI;
 using BiliBili.UWP.Controls;
+using BiliBili.UWP.Api;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -151,7 +152,7 @@ namespace BiliBili.UWP.Pages
                     img_bg.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Img/toutu.png"));
                 }
 
-                string url = string.Format("https://app.bilibili.com/x/v2/space?access_key={0}&appkey={1}&build=5250000&from=712&mobi_app=android&platform=android&ps=10&ts={2}&vmid={3}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, ApiHelper.GetTimeSpan, Uid);
+                string url = string.Format("https://app.bilibili.com/x/v2/space?access_key={0}&appkey={1}&build=5250000&from=712&mobi_app=android&platform=android&ps=10&ts={2}&vmid={3}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, ApiHelper.GetTimeSpan, Uid);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results1 = await WebClientClass.GetResults(new Uri(url));
                 UserInfoModel m = JsonConvert.DeserializeObject<UserInfoModel>(results1);
@@ -494,7 +495,7 @@ namespace BiliBili.UWP.Pages
 
                     string content = string.Format(
                         "access_key={0}&act=1&appkey={1}&build=45000&fid={2}&mobi_app=android&platform=android&re_src=90&ts={3}",
-                        ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, Uid, ApiHelper.GetTimeSpan_2
+                        ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, Uid, ApiHelper.GetTimeSpan_2
                         );
                     content += "&sign=" + ApiHelper.GetSign(content);
                     string result = await WebClientClass.PostResults(ReUri,
@@ -537,7 +538,7 @@ namespace BiliBili.UWP.Pages
 
                     string content = string.Format(
                         "access_key={0}&act=2&appkey={1}&build=45000&fid={2}&mobi_app=android&platform=android&re_src=90&ts={3}",
-                        ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, Uid, ApiHelper.GetTimeSpan_2
+                        ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, Uid, ApiHelper.GetTimeSpan_2
                         );
                     content += "&sign=" + ApiHelper.GetSign(content);
                     string result = await WebClientClass.PostResults(ReUri,
@@ -603,7 +604,7 @@ namespace BiliBili.UWP.Pages
                 }
 
                 string url = string.Format("https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?_device=android&access_key={0}&appkey={1}&build=5250000&host_uid={2}&mobi_app=android&offset_dynamic_id={3}&platform=android&qn=32&src=bilih5&ts={4}&visitor_uid={5}",
-                ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, Uid, next, ApiHelper.GetTimeSpan_2, ApiHelper.GetUserId());
+                ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, Uid, next, ApiHelper.GetTimeSpan_2, ApiHelper.GetUserId());
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResultsUTF8Encode(new Uri(url));
                 results = results.Replace("default", "_default");

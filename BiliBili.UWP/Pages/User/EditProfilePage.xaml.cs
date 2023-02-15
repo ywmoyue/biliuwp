@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Models;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -58,7 +59,7 @@ namespace BiliBili.UWP.Pages
             {
                 pr_Load.Visibility = Visibility.Visible;
                 string Uid = ApiHelper.GetUserId();
-                string results = await WebClientClass.GetResults(new Uri(ApiHelper.GetSignWithUrl($"https://app.bilibili.com/x/v2/account/myinfo?access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}",ApiHelper.AndroidKey)));
+                string results = await WebClientClass.GetResults(new Uri(ApiHelper.GetSignWithUrl($"https://app.bilibili.com/x/v2/account/myinfo?access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}",ApiUtils.AndroidKey)));
                 UserModel um = JsonConvert.DeserializeObject<UserModel>(results);
                 switch (um.data.sex)
                 {

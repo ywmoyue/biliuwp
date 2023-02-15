@@ -14,9 +14,9 @@ namespace BiliBili.UWP.Api.Home
             {
                 method =  HttpMethod.GET,
                 baseUrl = $"https://app.bilibili.com/x/v2/show/popular/index",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&idx={idx}&last_param={last_param}"
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&idx={idx}&last_param={last_param}"
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
     }

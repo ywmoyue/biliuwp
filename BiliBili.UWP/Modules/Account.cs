@@ -16,6 +16,9 @@ using Newtonsoft.Json;
 using Windows.Web.Http;
 using BiliBili.UWP.Api.User;
 using BiliBili.UWP.Api;
+using BiliBili.Models.Responses;
+using BiliBili.Models.Common;
+using System.Web;
 
 namespace BiliBili.UWP.Modules
 {
@@ -125,7 +128,7 @@ namespace BiliBili.UWP.Modules
                 httpBaseProtocolFilter.IgnorableServerCertificateErrors.Add(Windows.Security.Cryptography.Certificates.ChainValidationResult.Untrusted);
                 Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient(httpBaseProtocolFilter);
                 string url = "https://passport.bilibili.com/api/oauth2/getKey";
-                string content = $"appkey={ApiHelper.AndroidKey.Appkey}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string content = $"appkey={ApiUtils.AndroidKey.Appkey}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 content += "&sign=" + ApiHelper.GetSign(content);
                 string stringAsync = await WebClientClass.PostResults(new Uri(url), content);
                 JObject jObjects = JObject.Parse(stringAsync);
@@ -159,7 +162,7 @@ namespace BiliBili.UWP.Modules
                 string url = "https://passport.bilibili.com/api/v3/oauth2/login";
                 var pwd = Uri.EscapeDataString(await EncryptedPassword(password));
 
-                string data = $"username={Uri.EscapeDataString(username)}&password={pwd}&gee_type=10&appkey={ApiHelper.AndroidKey.Appkey}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string data = $"username={Uri.EscapeDataString(username)}&password={pwd}&gee_type=10&appkey={ApiUtils.AndroidKey.Appkey}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 data += "&sign=" + ApiHelper.GetSign(data);
                 var results = await WebClientClass.PostResults(new Uri(url), data);
                 var m = JsonConvert.DeserializeObject<AccountLoginModel>(results);
@@ -240,7 +243,7 @@ namespace BiliBili.UWP.Modules
             try
             {
                 string url = "https://passport.bilibili.com/api/oauth2/login";
-                string data = $"appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&password={Uri.EscapeDataString(await EncryptedPassword(password))}&platform=android&ts={ApiHelper.GetTimeSpan}&username={Uri.EscapeDataString(username)}";
+                string data = $"appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&password={Uri.EscapeDataString(await EncryptedPassword(password))}&platform=android&ts={ApiHelper.GetTimeSpan}&username={Uri.EscapeDataString(username)}";
                 if (!string.IsNullOrEmpty(captcha))
                 {
                     data += "&captcha=" + captcha;
@@ -323,10 +326,10 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                //var url = $"{domain}?access_key={access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                //var url = $"{domain}?access_key={access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 //url += "&sign=" + ApiHelper.GetSign(url);
 
-                var url = $"https://passport.bilibili.com/api/login/sso?access_key={access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&gourl=https%3A%2F%2Faccount.bilibili.com%2Faccount%2Fhome&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                var url = $"https://passport.bilibili.com/api/login/sso?access_key={access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&gourl=https%3A%2F%2Faccount.bilibili.com%2Faccount%2Fhome&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
 
                 var content = await WebClientClass.GetResults(new Uri(url));
@@ -347,7 +350,7 @@ namespace BiliBili.UWP.Modules
             try
             {
                 var url = "https://passport.bilibili.com/api/oauth2/refreshToken";
-                var data = $"access_token={access_key}&refresh_token={refresh_token}&appkey={ApiHelper.AndroidKey.Appkey}&ts={ApiHelper.GetTimeSpan}";
+                var data = $"access_token={access_key}&refresh_token={refresh_token}&appkey={ApiUtils.AndroidKey.Appkey}&ts={ApiHelper.GetTimeSpan}";
                 data += "&sign=" + ApiHelper.GetSign(data);
                 var content = await WebClientClass.PostResults(new Uri(url), data);
                 var obj = JObject.Parse(content);
@@ -405,7 +408,7 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                var url = $"https://passport.bilibili.com/api/oauth2/info?access_token={access_key}&appkey={ApiHelper.AndroidKey.Appkey}&ts={ApiHelper.GetTimeSpan}";
+                var url = $"https://passport.bilibili.com/api/oauth2/info?access_token={access_key}&appkey={ApiUtils.AndroidKey.Appkey}&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var content = await WebClientClass.GetResults(new Uri(url));
                 var obj = JObject.Parse(content);
@@ -488,7 +491,7 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                var url = $"https://app.bilibili.com/x/v2/account/myinfo?access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                var url = $"https://app.bilibili.com/x/v2/account/myinfo?access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var str = await WebClientClass.GetResults(new Uri(url));
                 var m = str.ToDynamicJObject();
@@ -603,6 +606,72 @@ namespace BiliBili.UWP.Modules
                 return HandelError<QRAuthInfo>(ex);
             }
         }
+
+        public async Task<string> GetCookieToAccessKeyConfirmUrl()
+        {
+            try
+            {
+                var result = await loginAPI.GetCookieToAccessKey().Request();
+                if (result.status)
+                {
+                    var data = await result.GetData<LoginAppThirdResponse>();
+                    return data.data.confirm_uri;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return null;
+        }
+
+
+        private void SaveCookie(Cookie_info cookieInfo)
+        {
+            var domain = Constants.CookieSetDomain;
+
+            if (cookieInfo != null && cookieInfo.cookies != null)
+            {
+                var filter = new HttpBaseProtocolFilter();
+                foreach (var cookieItem in cookieInfo.cookies)
+                {
+                    filter.CookieManager.SetCookie(new Windows.Web.Http.HttpCookie(cookieItem.name, domain, "/")
+                    {
+                        HttpOnly = cookieItem.http_only == 1,
+                        Secure = cookieItem.Secure == 1,
+                        Expires = DateTimeOffset.FromUnixTimeSeconds(cookieItem.expires),
+                        Value = cookieItem.value,
+                    });
+                }
+            }
+        }
+
+        public async Task<string> GetAccessKey(string url)
+        {
+            try
+            {
+                var result = await loginAPI.GetCookieToAccessKey(url).Request();
+                if (!result.status) return null;
+                var uri = new Uri(result.results);
+                var queries = HttpUtility.ParseQueryString(uri.Query);
+                var accessKey = queries.Get("access_key");
+                return accessKey;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<string> LoginByCookie(Cookie_info cookieInfo, string refresh_token)
+        {
+            SaveCookie(cookieInfo);
+            var cookieToAccessKeyConfirmUrl = await GetCookieToAccessKeyConfirmUrl();
+            var accessKey = await GetAccessKey(cookieToAccessKeyConfirmUrl);
+            return accessKey;
+        }
+
         /// <summary>
         /// 轮询二维码扫描信息
         /// </summary>
@@ -617,7 +686,8 @@ namespace BiliBili.UWP.Modules
                     var data = await result.GetData<Token_info>();
                     if (data.success)
                     {
-                        SettingHelper.Set_Access_key(data.data.access_token);
+                        var accessKey = await LoginByCookie(data.data.cookie_info, data.data.refresh_token);
+                        SettingHelper.Set_Access_key(accessKey);
                         SettingHelper.Set_Refresh_Token(data.data.refresh_token);
                         SettingHelper.Set_LoginExpires(DateTime.Now.AddSeconds(data.data.expires_in));
                         SettingHelper.Set_UserID(data.data.mid);
@@ -698,6 +768,11 @@ namespace BiliBili.UWP.Modules
             /// Expires_in
             /// </summary>
             public int expires_in { get; set; }
+
+            /// <summary>
+            /// Cookies.
+            /// </summary>
+            public Cookie_info cookie_info { get; set; }
         }
 
         public class Cookies
@@ -718,6 +793,11 @@ namespace BiliBili.UWP.Modules
             /// Expires
             /// </summary>
             public int expires { get; set; }
+
+            /// <summary>
+            /// 安全.
+            /// </summary>
+            public int Secure { get; set; }
         }
 
         public class Cookie_info

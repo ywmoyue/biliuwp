@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Controls;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Controls;
 using BiliBili.UWP.Models;
 using BiliBili.UWP.Pages.User;
 using Newtonsoft.Json;
@@ -121,7 +122,7 @@ namespace BiliBili.UWP.Pages
                 _AllLoading = true;
                 pr_Load.Visibility = Visibility.Visible;
 
-                string url = string.Format("http://api.vc.bilibili.com/clip/v1/video/index?access_key={0}&appkey={1}&build=434000&mobi_app=android&need_playurl=1&next_offset={2}&page_size=10&platform=android&src=master&trace_id=20170203233400032&version=4.34.0.434000", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _AllPage);
+                string url = string.Format("http://api.vc.bilibili.com/clip/v1/video/index?access_key={0}&appkey={1}&build=434000&mobi_app=android&need_playurl=1&next_offset={2}&page_size=10&platform=android&src=master&trace_id=20170203233400032&version=4.34.0.434000", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _AllPage);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResults(new Uri(url));
                 LiveVideoModel m = JsonConvert.DeserializeObject<LiveVideoModel>(results.Replace("default", "_default"));

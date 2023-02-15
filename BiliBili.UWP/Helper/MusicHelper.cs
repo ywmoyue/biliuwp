@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BiliBili.UWP.Api;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -184,7 +185,7 @@ namespace BiliBili.UWP.Helper
             try
             {
                 string url = string.Format("https://api.bilibili.com/audio/music-service-c/url?access_key={0}&appkey={1}&build=5370000&mid={2}&mobi_app=android&platform=android&privilege=2&quality={5}&songid={3}&ts={4}",
-               ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, ApiHelper.GetUserId(), id, ApiHelper.GetTimeSpan, quality);
+               ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, ApiHelper.GetUserId(), id, ApiHelper.GetTimeSpan, quality);
                 url += "&sign=" + ApiHelper.GetSign(url);
 
                 string re = await WebClientClass.GetResults(new Uri(url));

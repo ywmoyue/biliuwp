@@ -14,9 +14,9 @@ namespace BiliBili.UWP.Api.Home
             {
                 method = HttpMethod.GET,
                 baseUrl = $"https://app.bilibili.com/x/resource/show/tab",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, false)
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, false)
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 
@@ -26,9 +26,9 @@ namespace BiliBili.UWP.Api.Home
             {
                 method = HttpMethod.GET,
                 baseUrl = $"https://app.bilibili.com/x/feed/index/tab",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, false)+ $"&id={tab_id}"
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, false)+ $"&id={tab_id}"
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 

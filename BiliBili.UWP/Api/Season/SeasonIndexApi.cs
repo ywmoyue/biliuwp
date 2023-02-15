@@ -19,9 +19,9 @@ namespace BiliBili.UWP.Api.Season
             {
                 method = HttpMethod.GET,
                 baseUrl = $"https://bangumi.bilibili.com/media/api/search/v2/condition",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, false) + $"&season_type={season_type}"
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, false) + $"&season_type={season_type}"
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 
@@ -39,9 +39,9 @@ namespace BiliBili.UWP.Api.Season
             {
                 method = HttpMethod.GET,
                 baseUrl = $"https://bangumi.bilibili.com/media/api/search/result",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, false) + condition + $"&page={page}&pagesize={pagesize}&season_type={season_type}"
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, false) + condition + $"&page={page}&pagesize={pagesize}&season_type={season_type}"
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 

@@ -14,9 +14,9 @@ namespace BiliBili.UWP.Api
             {
                 method =  HttpMethod.GET,
                 baseUrl = $"https://app.bilibili.com/x/v2/view",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&{(isbvid ? "bvid=" : "aid=")}{id}&plat=0"
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&{(isbvid ? "bvid=" : "aid=")}{id}&plat=0"
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
         /// <summary>
@@ -31,9 +31,9 @@ namespace BiliBili.UWP.Api
             {
                 method = HttpMethod.POST,
                 baseUrl = $"https://app.bilibili.com/x/v2/view/like",
-                body = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&aid={aid}&dislike={dislike}&from=7&like={like}"
+                body = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&aid={aid}&dislike={dislike}&from=7&like={like}"
             };
-            api.body += ApiUtils.GetSign(api.body, ApiHelper.AndroidKey);
+            api.body += ApiUtils.GetSign(api.body, ApiUtils.AndroidKey);
             return api;
         }
         /// <summary>
@@ -48,9 +48,9 @@ namespace BiliBili.UWP.Api
             {
                 method = HttpMethod.POST,
                 baseUrl = $"https://app.biliapi.net/x/v2/view/dislike",
-                body = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&aid={aid}&dislike={dislike}&from=7&like={like}"
+                body = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&aid={aid}&dislike={dislike}&from=7&like={like}"
             };
-            api.body += ApiUtils.GetSign(api.body, ApiHelper.AndroidKey);
+            api.body += ApiUtils.GetSign(api.body, ApiUtils.AndroidKey);
             return api;
         }
 
@@ -64,9 +64,9 @@ namespace BiliBili.UWP.Api
             {
                 method = HttpMethod.POST,
                 baseUrl = $"https://app.bilibili.com/x/v2/view/like/triple",
-                body = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&aid={aid}"
+                body = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&aid={aid}"
             };
-            api.body += ApiUtils.GetSign(api.body, ApiHelper.AndroidKey);
+            api.body += ApiUtils.GetSign(api.body, ApiUtils.AndroidKey);
             return api;
         }
 
@@ -76,9 +76,9 @@ namespace BiliBili.UWP.Api
             {
                 method = HttpMethod.POST,
                 baseUrl = $"https://app.biliapi.net/x/v2/view/coin/add",
-                body = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&aid={aid}&multiply={num}&platform=android&select_like=0"
+                body = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&aid={aid}&multiply={num}&platform=android&select_like=0"
             };
-            api.body += ApiUtils.GetSign(api.body, ApiHelper.AndroidKey);
+            api.body += ApiUtils.GetSign(api.body, ApiUtils.AndroidKey);
             return api;
         }
         /// <summary>
@@ -93,9 +93,9 @@ namespace BiliBili.UWP.Api
             {
                 method = HttpMethod.POST,
                 baseUrl = $"https://api.bilibili.com/x/relation/modify",
-                body = ApiUtils.MustParameter(ApiHelper.AndroidKey, true) + $"&act={mode}&fid={mid}&re_src=32"
+                body = ApiUtils.MustParameter(ApiUtils.AndroidKey, true) + $"&act={mode}&fid={mid}&re_src=32"
             };
-            api.body += ApiUtils.GetSign(api.body, ApiHelper.AndroidKey);
+            api.body += ApiUtils.GetSign(api.body, ApiUtils.AndroidKey);
             return api;
         }
 

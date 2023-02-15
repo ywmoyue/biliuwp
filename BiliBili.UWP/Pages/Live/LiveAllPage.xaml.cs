@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Models;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -82,7 +83,7 @@ namespace BiliBili.UWP.Pages
                 _TJLoading = true;
                 pr_Load.Visibility = Visibility.Visible;
 
-                string url =ApiHelper.GetSignWithUrl($"https://api.live.bilibili.com/room/v3/Area/getRoomList?access_key={ ApiHelper.access_key}&actionKey=appkey&appkey={ApiHelper.AndroidKey.Appkey}&area_id=0&build={ApiHelper.build}&cate_id=0&mobi_app=android&page={_TJPage}&page_size=30&parent_area_id=0&platform=android&qn=0&sort_type=online&tag_version=1&ts={ApiHelper.GetTimeSpan}",ApiHelper.AndroidKey);
+                string url =ApiHelper.GetSignWithUrl($"https://api.live.bilibili.com/room/v3/Area/getRoomList?access_key={ ApiHelper.access_key}&actionKey=appkey&appkey={ApiUtils.AndroidKey.Appkey}&area_id=0&build={ApiHelper.build}&cate_id=0&mobi_app=android&page={_TJPage}&page_size=30&parent_area_id=0&platform=android&qn=0&sort_type=online&tag_version=1&ts={ApiHelper.GetTimeSpan}",ApiUtils.AndroidKey);
 
                 string results = await WebClientClass.GetResults(new Uri(url));
                 var m = results.ToDynamicJObject();
@@ -144,7 +145,7 @@ namespace BiliBili.UWP.Pages
                 _NewLoading = true;
                 pr_Load.Visibility = Visibility.Visible;
 
-                string url = ApiHelper.GetSignWithUrl($"https://api.live.bilibili.com/room/v3/Area/getRoomList?access_key={ ApiHelper.access_key}&actionKey=appkey&appkey={ApiHelper.AndroidKey.Appkey}&area_id=0&build={ApiHelper.build}&cate_id=0&mobi_app=android&page={_NewPage}&page_size=30&parent_area_id=0&platform=android&qn=0&sort_type=live_time&tag_version=1&ts={ApiHelper.GetTimeSpan}", ApiHelper.AndroidKey);
+                string url = ApiHelper.GetSignWithUrl($"https://api.live.bilibili.com/room/v3/Area/getRoomList?access_key={ ApiHelper.access_key}&actionKey=appkey&appkey={ApiUtils.AndroidKey.Appkey}&area_id=0&build={ApiHelper.build}&cate_id=0&mobi_app=android&page={_NewPage}&page_size=30&parent_area_id=0&platform=android&qn=0&sort_type=live_time&tag_version=1&ts={ApiHelper.GetTimeSpan}", ApiUtils.AndroidKey);
 
                 string results = await WebClientClass.GetResults(new Uri(url));
                 var m = results.ToDynamicJObject();

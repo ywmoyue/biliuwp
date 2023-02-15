@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Controls;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Controls;
 using BiliBili.UWP.Models;
 using BiliBili.UWP.Modules;
 using BiliBili.UWP.Pages;
@@ -153,8 +154,8 @@ namespace BiliBili.UWP.Helper
                 List<string> urls = new List<string>();
                 var playList = new SYEngine.Playlist(SYEngine.PlaylistTypes.NetworkHttp);
                 string url2 = string.Format(
-                    "https://bangumi.bilibili.com/player/web_api/v2/playurl?cid={1}&appkey={0}&otype=json&type=&quality={2}&module=bangumi&season_type={4}&qn={2}&ts={3}", ApiHelper.WebVideoKey.Appkey, model.Mid, qn, ApiHelper.GetTimeSpan_2, model.season_type);
-                url2 += "&sign=" + ApiHelper.GetSign(url2, ApiHelper.WebVideoKey);
+                    "https://bangumi.bilibili.com/player/web_api/v2/playurl?cid={1}&appkey={0}&otype=json&type=&quality={2}&module=bangumi&season_type={4}&qn={2}&ts={3}", ApiUtils.WebVideoKey.Appkey, model.Mid, qn, ApiHelper.GetTimeSpan_2, model.season_type);
+                url2 += "&sign=" + ApiHelper.GetSign(url2, ApiUtils.WebVideoKey);
                 var re = await WebClientClass.GetResultsUTF8Encode(new Uri(url2));
                 FlvPlyaerUrlModel m = JsonConvert.DeserializeObject<FlvPlyaerUrlModel>(re);
                 //是否遇到了地区限制
@@ -192,12 +193,12 @@ namespace BiliBili.UWP.Helper
                 List<string> urls = new List<string>();
                 var playList = new SYEngine.Playlist(SYEngine.PlaylistTypes.NetworkHttp);
                 string url2 = string.Format(
-                    "https://api.bilibili.com/pgc/player/web/playurl?cid={1}&appkey={0}&otype=json&type=&quality={2}&module=bangumi&season_type={4}&qn={2}&ts={3}&fourk=1&fnver=0&fnval=16", ApiHelper.WebVideoKey.Appkey, model.Mid, qn, ApiHelper.GetTimeSpan_2, model.season_type);
+                    "https://api.bilibili.com/pgc/player/web/playurl?cid={1}&appkey={0}&otype=json&type=&quality={2}&module=bangumi&season_type={4}&qn={2}&ts={3}&fourk=1&fnver=0&fnval=16", ApiUtils.WebVideoKey.Appkey, model.Mid, qn, ApiHelper.GetTimeSpan_2, model.season_type);
                 if (ApiHelper.IsLogin())
                 {
                     url2 += $"&access_key={ApiHelper.access_key}&mid={ApiHelper.GetUserId()}";
                 }
-                url2 += "&sign=" + ApiHelper.GetSign(url2, ApiHelper.WebVideoKey);
+                url2 += "&sign=" + ApiHelper.GetSign(url2, ApiUtils.WebVideoKey);
                 var re = await WebClientClass.GetResultsUTF8Encode(new Uri(url2));
                 var obj = JObject.Parse(re);
                 if (obj["code"].ToInt32() == 0)
@@ -660,15 +661,15 @@ namespace BiliBili.UWP.Helper
             try
             {
                 List<string> urls = new List<string>();
-                //string url = $"https://api.bilibili.com/x/player/playurl?appkey={ApiHelper.AndroidKey.Appkey}&avid={ aid}&cid={cid}&qn={qn}&type=&otype=json&fnver=0&fnval=16";
+                //string url = $"https://api.bilibili.com/x/player/playurl?appkey={ApiUtils.AndroidKey.Appkey}&avid={ aid}&cid={cid}&qn={qn}&type=&otype=json&fnver=0&fnval=16";
 
-                string url = $"https://api.bilibili.com/x/player/playurl?avid={aid}&cid={cid}&qn={qn}&type=&otype=json&fourk=1&fnver=0&fnval=16&appkey={ ApiHelper.WebVideoKey.Appkey}";
-                //url += "&sign=" + ApiHelper.GetSign(url, ApiHelper.WebVideoKey);
+                string url = $"https://api.bilibili.com/x/player/playurl?avid={aid}&cid={cid}&qn={qn}&type=&otype=json&fourk=1&fnver=0&fnval=16&appkey={ ApiUtils.WebVideoKey.Appkey}";
+                //url += "&sign=" + ApiHelper.GetSign(url, ApiUtils.WebVideoKey);
                 if (ApiHelper.IsLogin())
                 {
                     url += $"&access_key={ApiHelper.access_key}&mid={ApiHelper.GetUserId()}";
                 }
-                url = ApiHelper.GetSignWithUrl(url, ApiHelper.WebVideoKey);
+                url = ApiHelper.GetSignWithUrl(url, ApiUtils.WebVideoKey);
                 string re = await WebClientClass.GetResults(new Uri(url));
                 JObject obj = JObject.Parse(re);
                 if (obj["code"].ToInt32() == 0)
@@ -722,8 +723,8 @@ namespace BiliBili.UWP.Helper
             try
             {
                 List<string> urls = new List<string>();
-                string url = $"https://api.bilibili.com/x/player/playurl?avid={aid}&cid={cid}&qn={qn}&type=&otype=json&appkey={ApiHelper.WebVideoKey.Appkey}";
-                url += "&sign=" + ApiHelper.GetSign(url, ApiHelper.WebVideoKey);
+                string url = $"https://api.bilibili.com/x/player/playurl?avid={aid}&cid={cid}&qn={qn}&type=&otype=json&appkey={ApiUtils.WebVideoKey.Appkey}";
+                url += "&sign=" + ApiHelper.GetSign(url, ApiUtils.WebVideoKey);
                 string re = await WebClientClass.GetResults(new Uri(url));
                 FlvPlyaerUrlModel m = JsonConvert.DeserializeObject<FlvPlyaerUrlModel>(re);
                 if (m.code == 0)
@@ -891,7 +892,7 @@ namespace BiliBili.UWP.Helper
             {
                 var qn = 64;
 
-                string url = $"https://api.bilibili.com/x/player/playurl?avid={model.Aid}&cid={model.Mid}&qn={qn}&type=&otype=json&appkey={ ApiHelper.WebVideoKey.Appkey}";
+                string url = $"https://api.bilibili.com/x/player/playurl?avid={model.Aid}&cid={model.Mid}&qn={qn}&type=&otype=json&appkey={ ApiUtils.WebVideoKey.Appkey}";
                 if ((!down && SettingHelper.Get_UseDASH()) || (down && !SettingHelper.Get_DownFLV()))
                 {
                     url += "&fourk=1&fnver=0&fnval=16";
@@ -900,7 +901,7 @@ namespace BiliBili.UWP.Helper
                 {
                     url += $"&access_key={ApiHelper.access_key}&mid={ApiHelper.GetUserId()}";
                 }
-                url += "&sign=" + ApiHelper.GetSign(url, ApiHelper.WebVideoKey);
+                url += "&sign=" + ApiHelper.GetSign(url, ApiUtils.WebVideoKey);
                 string re = await WebClientClass.GetResults(new Uri(url));
 
                 //var mc = Regex.FlvPlyaerUrlModel(re, @"<length>(.*?)</length>.*?<size>(.*?)</size>.*?<url><!\[CDATA\[(.*?)\]\]></url>", RegexOptions.Singleline);
@@ -951,7 +952,7 @@ namespace BiliBili.UWP.Helper
                 List<string> urls = new List<string>();
 
                 string url2 = string.Format(
-                    "https://api.bilibili.com/pgc/player/web/playurl?cid={1}&appkey={0}&otype=json&type=&quality={2}&module=bangumi&season_type={4}&qn={2}&ts={3}", ApiHelper.WebVideoKey.Appkey, model.Mid, qn, ApiHelper.GetTimeSpan_2, model.season_type);
+                    "https://api.bilibili.com/pgc/player/web/playurl?cid={1}&appkey={0}&otype=json&type=&quality={2}&module=bangumi&season_type={4}&qn={2}&ts={3}", ApiUtils.WebVideoKey.Appkey, model.Mid, qn, ApiHelper.GetTimeSpan_2, model.season_type);
                 if (SettingHelper.Get_UseDASH())
                 {
                     url2 += "&fourk=1&fnver=0&fnval=16";
@@ -960,7 +961,7 @@ namespace BiliBili.UWP.Helper
                 {
                     url2 += $"&access_key={ApiHelper.access_key}&mid={ApiHelper.GetUserId()}";
                 }
-                url2 += "&sign=" + ApiHelper.GetSign(url2, ApiHelper.WebVideoKey);
+                url2 += "&sign=" + ApiHelper.GetSign(url2, ApiUtils.WebVideoKey);
                 var re = await WebClientClass.GetResultsUTF8Encode(new Uri(url2));
                 var jobj = JObject.Parse(re);
                 if (jobj["code"].ToInt32() == 0 && !re.Contains("8986943"))

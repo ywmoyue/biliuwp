@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiliBili.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace BiliBili.UWP.Api
         public static ApiKeyInfo AndroidTVKey = new ApiKeyInfo("4409e2ce8ffd12b8", "59b43e04ad6965f34319062b478f83dd");
         public static ApiKeyInfo AndroidVideoKey = new ApiKeyInfo("iVGUTjsxvpLeuDCf", "aHRmhWMLkdeMuILqORnYZocwMBpMEOdt");
         public static ApiKeyInfo WebVideoKey = new ApiKeyInfo("84956560bc028eb7", "94aba54af9065f71de72f5508f1cd42e");
+        public static ApiKeyInfo VideoKey = new ApiKeyInfo("", "1c15888dc316e05a15fdd0a02ed6584f");
+        public static ApiKeyInfo IosKey = new ApiKeyInfo("4ebafd7c4951b366", "8cb98205e9b2ad3669aad0fce12a4c13");
         private const string build = "5520400";
         private const string _mobi_app = "android";
         private const string _platform = "android";
@@ -79,15 +82,27 @@ namespace BiliBili.UWP.Api
         /// </summary>
         /// <param name="api"></param>
         /// <returns></returns>
-        public async static Task<HttpResults> Request(this ApiModel api)
+        public async static Task<BiliBili.Helpers.HttpResults> Request(this ApiModel api)
         {
             if (api.method == HttpMethod.GET)
             {
-                return await ApiRequest.Get(api.url, api.headers);
+                if (api.need_redirect)
+                {
+                    return await HttpHelper.GetRedirectWithWebCookie(api.url, api.headers);
+                }
+                if (api.need_cookie)
+                {
+                    return await HttpHelper.GetWithWebCookie(api.url, api.headers);
+                }
+                return await HttpHelper.GetAsync(api.url, api.headers);
             }
             else
             {
-                return await ApiRequest.Post(api.url, api.body, api.headers);
+                if (api.need_cookie)
+                {
+                    return await HttpHelper.PostWithCookie(api.url, api.body, api.headers);
+                }
+                return await HttpHelper.PostAsync(api.url, api.body, api.headers);
             }
         }
 
@@ -118,6 +133,14 @@ namespace BiliBili.UWP.Api
         /// 请求cookie
         /// </summary>
         public IDictionary<string, string> cookies { get; set; }
+        /// <summary>
+        /// 需要Cookie
+        /// </summary>
+        public bool need_cookie { get; set; } = false;
+        /// <summary>
+        /// 需要重定向
+        /// </summary>
+        public bool need_redirect { get; set; } = false;
         /// <summary>
         /// 请求地址
         /// </summary>

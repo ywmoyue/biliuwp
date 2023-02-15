@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Documents;
 using System.Threading.Tasks;
 using BiliBili.UWP.Models;
 using BiliBili.UWP.Pages.User;
+using BiliBili.UWP.Api;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -283,7 +284,7 @@ namespace BiliBili.UWP.Controls
                 pr_load.Visibility = Visibility.Visible;
                 ObservableCollection<CommentModel> ls = new ObservableCollection<CommentModel>();
                 var url = string.Format("https://api.bilibili.com/x/v2/reply?access_key={0}&appkey={1}&build={7}&mobi_app=android&oid={2}&plat=2&platform=android&pn={3}&ps=20&sort={6}&ts={4}&type={5}",
-                 ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _loadCommentInfo.oid, _page, ApiHelper.GetTimeSpan_2, _type, sort, ApiHelper.build);
+                 ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _loadCommentInfo.oid, _page, ApiHelper.GetTimeSpan_2, _type, sort, ApiHelper.build);
                 url += "&sign=" + ApiHelper.GetSign(url);
 
                 //var url = "https://api.bilibili.com/x/v2/reply?oid=2381475&plat=2&pn=1&ps=20&sort=0&type=11";
@@ -375,7 +376,7 @@ namespace BiliBili.UWP.Controls
                 data.showLoading = Visibility.Visible;
                 ObservableCollection<CommentModel> ls = new ObservableCollection<CommentModel>();
                 var url = string.Format("https://api.bilibili.com/x/v2/reply/reply?access_key={0}&appkey={1}&build={7}&mobi_app=android&oid={2}&plat=2&platform=android&pn={3}&ps=10&root={6}&ts={4}&type={5}",
-                 ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _loadCommentInfo.oid, data.loadpage, ApiHelper.GetTimeSpan_2, _type, data.rpid, ApiHelper.build);
+                 ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _loadCommentInfo.oid, data.loadpage, ApiHelper.GetTimeSpan_2, _type, data.rpid, ApiHelper.build);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var re = await WebClientClass.GetResults(new Uri(url));
                 dataCommentModel m = JsonConvert.DeserializeObject<dataCommentModel>(re);
@@ -426,7 +427,7 @@ namespace BiliBili.UWP.Controls
                 }
                 string url = "https://api.bilibili.com/x/v2/reply/action";
                 string content = string.Format("access_key={0}&appkey={1}&platform=android&type={2}&rpid={4}&oid={3}&action={5}&ts={6}",
-                    ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _type, _loadCommentInfo.oid, data.rpid, action, ApiHelper.GetTimeSpan_2);
+                    ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _type, _loadCommentInfo.oid, data.rpid, action, ApiHelper.GetTimeSpan_2);
                 content += "&sign=" + ApiHelper.GetSign(content);
                 var re = await WebClientClass.PostResults(new Uri(url), content);
                 JObject obj = JObject.Parse(re);
@@ -606,7 +607,7 @@ namespace BiliBili.UWP.Controls
 
                 string content =
                     string.Format("access_key={0}&appkey={1}&platform=android&type={2}&oid={3}&ts={4}&message={5}&root={6}&parent={6}",
-                    ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _type, _loadCommentInfo.oid, ApiHelper.GetTimeSpan_2, Uri.EscapeDataString(m.replyText), m.rpid);
+                    ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _type, _loadCommentInfo.oid, ApiHelper.GetTimeSpan_2, Uri.EscapeDataString(m.replyText), m.rpid);
                 content += "&sign=" + ApiHelper.GetSign(content);
                 var re = await WebClientClass.PostResults(new Uri(url), content);
                 JObject obj = JObject.Parse(re);
@@ -660,7 +661,7 @@ namespace BiliBili.UWP.Controls
                 var txt = "回复 @" + m.member.uname + ":" + m.replyText;
                 string content =
                     string.Format("access_key={0}&appkey={1}&platform=android&type={2}&oid={3}&ts={4}&message={5}&root={6}&parent={7}",
-                    ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _type, _loadCommentInfo.oid, ApiHelper.GetTimeSpan_2, Uri.EscapeDataString(txt), m.root, m.rpid);
+                    ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _type, _loadCommentInfo.oid, ApiHelper.GetTimeSpan_2, Uri.EscapeDataString(txt), m.root, m.rpid);
                 content += "&sign=" + ApiHelper.GetSign(content);
                 var re = await WebClientClass.PostResults(new Uri(url), content);
                 JObject obj = JObject.Parse(re);
@@ -722,7 +723,7 @@ namespace BiliBili.UWP.Controls
 
                 string content =
                     string.Format("access_key={0}&appkey={1}&platform=android&type={2}&oid={3}&ts={4}&rpid={5}",
-                    ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _type, _loadCommentInfo.oid, ApiHelper.GetTimeSpan_2, m.rpid);
+                    ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _type, _loadCommentInfo.oid, ApiHelper.GetTimeSpan_2, m.rpid);
                 content += "&sign=" + ApiHelper.GetSign(content);
 
                 var re = await WebClientClass.PostResults(new Uri(url), content);

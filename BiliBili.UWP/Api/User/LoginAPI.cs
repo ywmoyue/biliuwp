@@ -43,5 +43,38 @@ namespace BiliBili.UWP.Api.User
         }
 
 
+        /// <summary>
+        /// web版登录获取到的Cookie转app令牌
+        /// </summary>
+        /// <returns></returns>
+        public ApiModel GetCookieToAccessKey()
+        {
+            var apiBody = "api=http://link.acg.tv/forum.php";
+            ApiModel api = new ApiModel()
+            {
+                method = HttpMethod.GET,
+                baseUrl = "https://passport.bilibili.com/login/app/third",
+                parameter = $"appkey={ApiUtils.AndroidKey.Appkey}&{apiBody}&sign=",
+                need_cookie = true,
+            };
+            api.parameter += ApiHelper.GetSign(apiBody, ApiUtils.AndroidKey);
+            return api;
+        }
+
+        /// <summary>
+        /// web版登录获取到的Cookie转app令牌
+        /// </summary>
+        /// <returns></returns>
+        public ApiModel GetCookieToAccessKey(string url)
+        {
+            ApiModel api = new ApiModel()
+            {
+                method = HttpMethod.GET,
+                baseUrl = url,
+                need_cookie = true,
+                need_redirect = true,
+            };
+            return api;
+        }
     }
 }

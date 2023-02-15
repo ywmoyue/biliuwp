@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Pages;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Pages;
 using BiliBili.UWP.Pages.FindMore;
 using BiliBili.UWP.Pages.User;
 using BiliBili.UWP.Views;
@@ -333,7 +334,7 @@ namespace BiliBili.UWP.Controls
             {
                 string url = "https://api.vc.bilibili.com/dynamic_like/v1/dynamic_like/like";
                 string content = string.Format("_device=android&access_key={0}&appkey={1}&build=5250000&dynamic_id={2}&mobi_app=android&platform=android&rid={3}&spec_type=0&src=bilih5&ts={4}&type=8&uid={5}",
-                     ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, model.desc.dynamic_id, model.desc.rid, ApiHelper.GetTimeSpan_2, ApiHelper.GetUserId());
+                     ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, model.desc.dynamic_id, model.desc.rid, ApiHelper.GetTimeSpan_2, ApiHelper.GetUserId());
                 content += "&sign=" + ApiHelper.GetSign(content);
                 var results = await WebClientClass.PostResults(new Uri(url), content);
 

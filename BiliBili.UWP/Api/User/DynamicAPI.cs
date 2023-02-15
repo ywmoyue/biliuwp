@@ -23,10 +23,10 @@ namespace BiliBili.UWP.Api.User
             {
                 method = HttpMethod.POST,
                 baseUrl = $"https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/create_draw",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, true),
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, true),
                 body = $"uid={ApiHelper.GetUserId()}&category=3&pictures={Uri.EscapeDataString(imgs)}&description={Uri.EscapeDataString(content)}&content={Uri.EscapeDataString(content)}&setting=%7B%22copy_forbidden%22%3A0%7D&at_uids={Uri.EscapeDataString(at_uids)}&at_control={Uri.EscapeDataString(at_control)}&jumpfrom=110&extension=%7B%22emoji_type%22%3A1%7D"
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 
@@ -42,10 +42,10 @@ namespace BiliBili.UWP.Api.User
             {
                 method = HttpMethod.POST,
                 baseUrl = $"https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/create",
-                parameter = ApiUtils.MustParameter(ApiHelper.AndroidKey, true),
+                parameter = ApiUtils.MustParameter(ApiUtils.AndroidKey, true),
                 body = $"uid={ApiHelper.GetUserId()}&dynamic_id=0&type=4&content={Uri.EscapeDataString(content)}&setting=%7B%22copy_forbidden%22%3A0%7D&at_uids={Uri.EscapeDataString(at_uids)}&at_control={Uri.EscapeDataString(at_control)}&jumpfrom=110&extension=%7B%22emoji_type%22%3A1%7D"
             };
-            api.parameter += ApiUtils.GetSign(api.parameter, ApiHelper.AndroidKey);
+            api.parameter += ApiUtils.GetSign(api.parameter, ApiUtils.AndroidKey);
             return api;
         }
 

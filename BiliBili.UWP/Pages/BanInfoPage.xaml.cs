@@ -36,6 +36,7 @@ using System.Threading.Tasks;
 using BiliBili.UWP.Modules;
 using Windows.UI.Popups;
 using BiliBili.UWP.Pages.User;
+using BiliBili.UWP.Api;
 
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
@@ -116,7 +117,7 @@ namespace BiliBili.UWP.Pages
             {
 
                 pr_Load.Visibility = Visibility.Visible;
-                string uri = string.Format("https://api.bilibili.com/pgc/view/app/season?access_key={0}&appkey={1}&build=5341000&platform=android&season_id={2}&ts={3}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _banId, ApiHelper.GetTimeSpan);
+                string uri = string.Format("https://api.bilibili.com/pgc/view/app/season?access_key={0}&appkey={1}&build=5341000&platform=android&season_id={2}&ts={3}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _banId, ApiHelper.GetTimeSpan);
                 uri += "&sign=" + ApiHelper.GetSign(uri);
                 string results = await WebClientClass.GetResultsUTF8Encode(new Uri(uri));
 
@@ -415,7 +416,7 @@ namespace BiliBili.UWP.Pages
         {
             try
             {
-                string url = string.Format("https://bangumi.bilibili.com/media/api/detail?appkey={0}&build=5250000&media_id={1}&platform=android&ts={2}", ApiHelper.AndroidKey.Appkey, mediaId, ApiHelper.GetTimeSpan);
+                string url = string.Format("https://bangumi.bilibili.com/media/api/detail?appkey={0}&build=5250000&media_id={1}&platform=android&ts={2}", ApiUtils.AndroidKey.Appkey, mediaId, ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var results = await WebClientClass.GetResults(new Uri(url));
                 BangumiDetailModel bangumiDetailModel = JsonConvert.DeserializeObject<BangumiDetailModel>(results);
@@ -483,11 +484,11 @@ namespace BiliBili.UWP.Pages
                 string url = string.Empty;
                 if (cb_Cb.SelectedIndex == 0)
                 {
-                    url = string.Format("http://bangumi.bilibili.com/sponsor/rank/get_sponsor_week_list?access_key={0}&appkey={1}&build=418000&mobi_app=android&page=1&pagesize=25&platform=android&season_id={2}&ts={3}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _banId, ApiHelper.GetTimeSpan);
+                    url = string.Format("http://bangumi.bilibili.com/sponsor/rank/get_sponsor_week_list?access_key={0}&appkey={1}&build=418000&mobi_app=android&page=1&pagesize=25&platform=android&season_id={2}&ts={3}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _banId, ApiHelper.GetTimeSpan);
                 }
                 else
                 {
-                    url = string.Format("http://bangumi.bilibili.com/sponsor/rank/get_sponsor_total?access_key={0}&appkey={1}&build=418000&mobi_app=android&page=1&pagesize=25&platform=android&season_id={2}&ts={3}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _banId, ApiHelper.GetTimeSpan);
+                    url = string.Format("http://bangumi.bilibili.com/sponsor/rank/get_sponsor_total?access_key={0}&appkey={1}&build=418000&mobi_app=android&page=1&pagesize=25&platform=android&season_id={2}&ts={3}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _banId, ApiHelper.GetTimeSpan);
                 }
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResultsUTF8Encode(new Uri(url));
@@ -707,7 +708,7 @@ namespace BiliBili.UWP.Pages
             try
             {
                 int stype = (this.DataContext as BangumiDataModel).season_type;
-                var url = string.Format("https://bangumi.bilibili.com/follow/api/season/follow?access_key={0}&appkey={1}&build=5250000&mobi_app=android&platform=android&season_id={2}&season_type={3}&ts={4}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _banId, stype, ApiHelper.GetTimeSpan);
+                var url = string.Format("https://bangumi.bilibili.com/follow/api/season/follow?access_key={0}&appkey={1}&build=5250000&mobi_app=android&platform=android&season_id={2}&season_type={3}&ts={4}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _banId, stype, ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResults(new Uri(url));
 
@@ -747,7 +748,7 @@ namespace BiliBili.UWP.Pages
             try
             {
                 int stype = (this.DataContext as BangumiDataModel).season_type;
-                var url = string.Format("https://bangumi.bilibili.com/follow/api/season/unfollow?access_key={0}&appkey={1}&build=5250000&mobi_app=android&platform=android&season_id={2}&season_type={3}&ts={4}", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, _banId, stype, ApiHelper.GetTimeSpan);
+                var url = string.Format("https://bangumi.bilibili.com/follow/api/season/unfollow?access_key={0}&appkey={1}&build=5250000&mobi_app=android&platform=android&season_id={2}&season_type={3}&ts={4}", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, _banId, stype, ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResults(new Uri(url));
                 JObject json = JObject.Parse(results);

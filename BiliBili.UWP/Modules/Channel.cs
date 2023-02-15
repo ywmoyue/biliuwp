@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Helper;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Helper;
 using BiliBili.UWP.Models;
 using BiliBili.UWP.Modules.ChannelModels;
 using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                string url = $"https://app.bilibili.com/x/channel/list?access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string url = $"https://app.bilibili.com/x/channel/list?access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var results = await WebClientClass.GetResults(new Uri(url));
                 var model = results.ToDynamicJObject();
@@ -66,7 +67,7 @@ namespace BiliBili.UWP.Modules
             try
             {
                 string url = "https://app.bilibili.com/x/channel/add";
-                string data = $"access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string data = $"access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 data += "&sign=" + ApiHelper.GetSign(data);
                 var results = await WebClientClass.PostResults(new Uri(url), data);
                 var model = results.ToDynamicJObject();
@@ -105,7 +106,7 @@ namespace BiliBili.UWP.Modules
             try
             {
                 string url = "https://app.bilibili.com/x/channel/cancel";
-                string data = $"access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string data = $"access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 data += "&sign=" + ApiHelper.GetSign(data);
                 var results = await WebClientClass.PostResults(new Uri(url), data);
                 var model = results.ToDynamicJObject();
@@ -142,7 +143,7 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                string url = $"https://app.bilibili.com/x/channel/subscribe?access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string url = $"https://app.bilibili.com/x/channel/subscribe?access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var results = await WebClientClass.GetResults(new Uri(url));
                 var model = results.ToDynamicJObject();
@@ -184,7 +185,7 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                string url = $"https://app.bilibili.com/x/channel/feed?access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&channel_name={Uri.EscapeDataString(name)}&display_id={page}&login_event=0&mobi_app=android&platform=android&pull={(page==1).ToString().ToLower()}&ts={ApiHelper.GetTimeSpan}";
+                string url = $"https://app.bilibili.com/x/channel/feed?access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&channel_name={Uri.EscapeDataString(name)}&display_id={page}&login_event=0&mobi_app=android&platform=android&pull={(page==1).ToString().ToLower()}&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var results = await WebClientClass.GetResults(new Uri(url));
                 results = results.Replace("goto", "_goto");
@@ -226,7 +227,7 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                string url = $"https://app.bilibili.com/x/channel/feed/tab?access_key={ApiHelper.access_key}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&channel_name={Uri.EscapeDataString(name)}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string url = $"https://app.bilibili.com/x/channel/feed/tab?access_key={ApiHelper.access_key}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&channel_id={channel_id}&channel_name={Uri.EscapeDataString(name)}&mobi_app=android&platform=android&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var results = await WebClientClass.GetResults(new Uri(url));
                 var model = results.ToDynamicJObject();

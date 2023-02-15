@@ -21,6 +21,7 @@ using Newtonsoft.Json.Linq;
 using Windows.UI.Popups;
 using System.Text;
 using System.Text.RegularExpressions;
+using BiliBili.UWP.Api;
 
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
@@ -1731,7 +1732,7 @@ namespace BiliBili.UWP.Pages
                 #region
                 string uri = "";
                 uri = string.Format("https://app.bilibili.com/x/v2/region/show/child/list?appkey={0}&build={1}&channel=bili&order={4}&platform=android&pn={2}&ps=20&rid={3}",
-                    ApiHelper.AndroidKey.Appkey,ApiHelper.build, Num, id, orderBy);
+                    ApiUtils.AndroidKey.Appkey,ApiHelper.build, Num, id, orderBy);
                 if (tag.Length != 0 && tag != "全部")
                 {
                     uri += "&tag_name=" + Uri.EscapeDataString(tag);

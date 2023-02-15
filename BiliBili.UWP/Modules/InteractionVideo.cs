@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BiliBili.UWP.Api;
 using BiliBili.UWP.Helper;
 using BiliBili.UWP.Models;
 using Newtonsoft.Json.Linq;
@@ -28,7 +29,7 @@ namespace BiliBili.UWP.Modules
         {
             try
             {
-                string url = $"https://api.bilibili.com/x/stein/nodeinfo?access_key={ ApiHelper.access_key}&aid={aid}&appkey={ApiHelper.AndroidKey.Appkey}&build={ApiHelper.build}&delay=0&graph_version={graph_version}&mobi_app=android&node_id={nodeid}&platform=android&ts={ApiHelper.GetTimeSpan}";
+                string url = $"https://api.bilibili.com/x/stein/nodeinfo?access_key={ ApiHelper.access_key}&aid={aid}&appkey={ApiUtils.AndroidKey.Appkey}&build={ApiHelper.build}&delay=0&graph_version={graph_version}&mobi_app=android&node_id={nodeid}&platform=android&ts={ApiHelper.GetTimeSpan}";
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var results =await WebClientClass.GetResults(new Uri(url));
                 var obj = JObject.Parse(results);

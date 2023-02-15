@@ -119,7 +119,7 @@ namespace BiliBili.UWP.Views
             try
             {
                 pr_Load.Visibility = Visibility.Visible;
-                string url = string.Format("https://bangumi.bilibili.com/appindex/follow_index_page?appkey={0}&build=5250000&mobi_app=android&platform=wp&ts={1}000",ApiHelper.AndroidKey.Appkey,ApiHelper.GetTimeSpan);
+                string url = string.Format("https://bangumi.bilibili.com/appindex/follow_index_page?appkey={0}&build=5250000&mobi_app=android&platform=wp&ts={1}000",ApiUtils.AndroidKey.Appkey,ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResultsUTF8Encode(new Uri(url));
                 BangumiHomeModel m = JsonConvert.DeserializeObject<BangumiHomeModel>(results);

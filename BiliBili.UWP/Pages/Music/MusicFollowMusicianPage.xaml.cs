@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiliBili.UWP.Api;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace BiliBili.UWP.Pages.Music
             try
             {
                 string url = "https://api.bilibili.com/audio/music-service-c/users/upmembers?access_key={0}&appkey={1}&build=5250000&mid={2}&mobi_app=android&page_index=1&page_size=1000&platform=android&ts={3}";
-                url = string.Format(url,ApiHelper.access_key,ApiHelper.AndroidKey.Appkey,ApiHelper.GetUserId(),ApiHelper.GetTimeSpan);
+                url = string.Format(url,ApiHelper.access_key,ApiUtils.AndroidKey.Appkey,ApiHelper.GetUserId(),ApiHelper.GetTimeSpan);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 var re = await WebClientClass.GetResults(new Uri(url));
                 FollowMusicianModel m = Newtonsoft.Json.JsonConvert.DeserializeObject<FollowMusicianModel>(re);

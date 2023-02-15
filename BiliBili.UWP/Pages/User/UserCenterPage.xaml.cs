@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Views;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -162,7 +163,7 @@ namespace BiliBili.UWP.Pages.User
                 }
 
                 string url = string.Format("https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?_device=android&access_key={0}&appkey={1}&build=5250000&host_uid={2}&mobi_app=android&offset_dynamic_id={3}&platform=android&qn=32&src=bilih5&ts={4}&visitor_uid={5}",
-                ApiHelper.access_key, ApiHelper.AndroidKey.Appkey, mid, next, ApiHelper.GetTimeSpan_2, ApiHelper.GetUserId());
+                ApiHelper.access_key, ApiUtils.AndroidKey.Appkey, mid, next, ApiHelper.GetTimeSpan_2, ApiHelper.GetUserId());
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await WebClientClass.GetResultsUTF8Encode(new Uri(url));
                 results = results.Replace("default", "_default");

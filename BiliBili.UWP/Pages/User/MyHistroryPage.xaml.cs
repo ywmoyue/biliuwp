@@ -1,4 +1,5 @@
-﻿using BiliBili.UWP.Models;
+﻿using BiliBili.UWP.Api;
+using BiliBili.UWP.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -134,7 +135,7 @@ namespace BiliBili.UWP.Pages
             {
                 try
                 {
-                    string url = string.Format("http://api.bilibili.com/x/v2/history/clear?_device=android&access_key={0}&appkey={1}&build=421000&mobi_app=android&platform=android", ApiHelper.access_key, ApiHelper.AndroidKey.Appkey);
+                    string url = string.Format("http://api.bilibili.com/x/v2/history/clear?_device=android&access_key={0}&appkey={1}&build=421000&mobi_app=android&platform=android", ApiHelper.access_key, ApiUtils.AndroidKey.Appkey);
                     url += "&sign=" + ApiHelper.GetSign(url);
                     string results = await WebClientClass.PostResults(new Uri(url), "");
                     User_ListView_History.Items.Clear();

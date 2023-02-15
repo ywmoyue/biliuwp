@@ -20,6 +20,7 @@ using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using System.Xml.Linq;
 using BiliBili.UWP.Helper;
+using BiliBili.UWP.Api;
 
 namespace BiliBili.UWP
 {
@@ -34,12 +35,6 @@ namespace BiliBili.UWP
         //九幽反馈
         public const string JyAppkey = @"afaaf76fbe62a275d4dc309d6151d3c3";
         //public static ApiKeyInfo AndroidKey = new ApiKeyInfo("1d8b6e7d45233436", "560c52ccd288fed045859ed18bffd973");
-        public static ApiKeyInfo AndroidKey = new ApiKeyInfo("4409e2ce8ffd12b8", "59b43e04ad6965f34319062b478f83dd");
-        public static ApiKeyInfo AndroidVideoKey = new ApiKeyInfo("iVGUTjsxvpLeuDCf", "aHRmhWMLkdeMuILqORnYZocwMBpMEOdt");
-        public static ApiKeyInfo WebVideoKey = new ApiKeyInfo("84956560bc028eb7", "94aba54af9065f71de72f5508f1cd42e");
-        public static ApiKeyInfo VideoKey = new ApiKeyInfo("", "1c15888dc316e05a15fdd0a02ed6584f");
-        public static ApiKeyInfo IosKey = new ApiKeyInfo("4ebafd7c4951b366", "8cb98205e9b2ad3669aad0fce12a4c13");
-
 
         public const string build = "5520400";
 
@@ -63,7 +58,7 @@ namespace BiliBili.UWP
         {
             if (apiKeyInfo==null)
             {
-                apiKeyInfo = ApiHelper.AndroidKey;
+                apiKeyInfo = ApiUtils.AndroidKey;
             }
             string result;
             string str = url.Substring(url.IndexOf("?", 4) + 1);
@@ -130,7 +125,7 @@ namespace BiliBili.UWP
         {
             try
             {
-                string url = string.Format("https://app.bilibili.com/x/v2/region/index?appkey={0}&build={2}&mobi_app=android&platform=android&ts={1}", ApiHelper.AndroidKey.Appkey,GetTimeSpan,ApiHelper.build);
+                string url = string.Format("https://app.bilibili.com/x/v2/region/index?appkey={0}&build={2}&mobi_app=android&platform=android&ts={1}", ApiUtils.AndroidKey.Appkey,GetTimeSpan,ApiHelper.build);
                 url += "&sign=" + ApiHelper.GetSign(url);
 
                 string results = await WebClientClass.GetResults(new Uri(url));
