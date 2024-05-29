@@ -139,7 +139,7 @@ namespace BiliBili.UWP
              * https://m.bilibili.com/playlist/pl733016988?avid=68818070
              */
 
-            var video = Utils.RegexMatch(url.Replace("aid", "av").Replace("/","").Replace("=",""), @"av(\d+)");
+            var video = Utils.RegexMatch(url.Replace("aid", "av").Replace("/","").Replace("=",""), @"av(\d{3,})");
             if (video!="")
             {
                 InfoNavigateToEvent(typeof(VideoViewPage), video);
